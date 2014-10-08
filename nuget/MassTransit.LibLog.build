@@ -1,0 +1,18 @@
+<Project DefaultTargets="CreatePackage" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+
+    <Target Name="Clean">
+        <MSBuild Targets="Clean" Projects="../MassTransit.LibLog.sln" />
+    </Target>
+
+    <Target Name="Rebuild">
+        <MSBuild Targets="Rebuild" Projects="../MassTransit.LibLog.sln" Properties="Configuration=Release"/>
+    </Target>
+    
+    <Target Name="CreatePackage" DependsOnTargets="Clean;Rebuild">
+		<Copy
+            SourceFiles="../src/MassTransit.LibLog/bin/Release/MassTransit.LibLog.dll"
+            DestinationFiles="./Package/lib/net40/MassTransit.LibLog.dll"
+        />
+	</Target>
+</Project>
