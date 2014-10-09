@@ -20,10 +20,10 @@ LibLog will automatically scan for the following frameworks, NLog, Log4Net, EntL
 If you want to implement custom logging, you need to create a custom log provider and set it before the Service Bus is configured.
 
 ```csharp
-MassTransit.LibLog.Logging.LogProvider.SetCurrentLogProvider(new CusomLogProvider());
+MassTransit.LibLog.Logging.LogProvider.SetCurrentLogProvider(new CustomLogProvider());
 ```
 ```csharp
-public class CusomLogProvider : MassTransit.LibLog.Logging.ILogProvider
+public class CustomLogProvider : MassTransit.LibLog.Logging.ILogProvider
 {
 	public MassTransit.LibLog.Logging.ILog GetLogger(string name)
 	{
