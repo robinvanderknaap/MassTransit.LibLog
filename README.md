@@ -17,31 +17,31 @@ var serviceBus = ServiceBusFactory.New(configurator =>
 LibLog will automatically scan for the following frameworks, NLog, Log4Net, EntLib Logging and SeriLog. If it cannot find any of these frameworks, logging is automatically disabled. 
 
 ### Custom logging
-If you want to implement custom logging, you need to create a custom log provider set it before the Service Bus is configured.
+If you want to implement custom logging, you need to create a custom log provider and set it before the Service Bus is configured.
 
 ```csharp
-Topshelf.LibLog.Logging.LogProvider.SetCurrentLogProvider(new CusomLogProvider());
+MassTransit.LibLog.Logging.LogProvider.SetCurrentLogProvider(new CusomLogProvider());
 ```
 ```csharp
-public class CusomLogProvider : Topshelf.LibLog.Logging.ILogProvider
+public class CusomLogProvider : MassTransit.LibLog.Logging.ILogProvider
 {
-	public Topshelf.LibLog.Logging.ILog GetLogger(string name)
+	public MassTransit.LibLog.Logging.ILog GetLogger(string name)
 	{
 		return new CustomLogger(name);
 	}
 }
 ```
-The customlogger should implement Topshelf.LibLog.Logging.ILog
+The customlogger should implement MassTransit.LibLog.Logging.ILog
 
 ```csharp
-public class CustomLogger : Topshelf.LibLog.Logging.ILog
+public class CustomLogger : MassTransit.LibLog.Logging.ILog
 {
 	public CustomLogger(string name)
 	{
 		....
 	}
 	
-	public bool Log(Topshelf.LibLog.Logging.LogLevel logLevel, Func<string> messageFunc)
+	public bool Log(MassTransit.LibLog.Logging.LogLevel logLevel, Func<string> messageFunc)
 	{
 		if (messageFunc != null)
 		{
@@ -51,7 +51,7 @@ public class CustomLogger : Topshelf.LibLog.Logging.ILog
 		return true;
 	}
 
-	public void Log<TException>(Topshelf.LibLog.Logging.LogLevel logLevel, Func<string> messageFunc, TException exception) where TException : Exception
+	public void Log<TException>(MassTransit.LibLog.Logging.LogLevel logLevel, Func<string> messageFunc, TException exception) where TException : Exception
 	{
 		// Call to your own custom methods
 		Log(messageFunc(), exception);
